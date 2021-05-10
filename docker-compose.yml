@@ -1,7 +1,0 @@
-version: '3'
-services:
-  parser:
-    build: .
-    restart: always
-    ports:
-      - "8000:8000"

@@ -7,3 +7,24 @@
 5. Store user details like - github ID, username, filename, file created date, file extension in a mysql table.
 6. Add proper error exception.
 7. Gin+GRPC server.
+
+#### Go guideline
+1. To initialize a project with go module, run:
+```go mod init your-project-name```
+
+2.Add missing and/or remove unused modules:
+```go mod tidy```
+
+3. You can even vendor the modules in your project directory:
+```
+go mod vendor
+```
+
+Creating gists:
+```
+curl --location --request POST 'https://api.github.com/gists' \
+--header 'Authorization: Bearer <ACCESS_TOKEN>' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: _octo=GH1.1.329936248.1614167878; logged_in=no' \
+--data-raw '{"public":true,"files":{"test.txt":{"content":"String file contents"}}}'
+```
