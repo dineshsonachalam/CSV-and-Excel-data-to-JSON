@@ -1,6 +1,7 @@
 package main
 
 import (
+	"any-json/utils"
 	"fmt"
 	"io/ioutil"
 	"path/filepath"
@@ -19,8 +20,9 @@ type AppStats struct {
 func main() {
 	router := gin.Default()
 	apiResponse := AppStats{}
+	appUrl := "anyjson.dineshsonachalam.com"
 	router.POST("/upload", func(c *gin.Context) {
-		formFile, err := c.FormFile("file")
+		formFile, err := c.FormFile("uploadfile")
 		if err != nil {
 			c.JSON(200, gin.H{
 				"success": false,
@@ -33,35 +35,41 @@ func main() {
 		filename := filepath.Base(formFile.Filename)
 		fileExtension := filepath.Ext(filename)
 		newFilename := (strings.Split(filename, "."))[0] + ".json"
-		JsonString := ""
-		fileParsed := false
-		fileUpload := false
-		fmt.Println(filename)
-		fmt.Println(newFilename)
-		fmt.Println(file)
-		fmt.Println(JsonString)
+		author := "Dinesh"
+		ParserResponse := utils.ParserResponse{}
+		UploadResponse := utils.UploadResponse{}
 
 		if fileExtension == ".yaml" {
-			fmt.Println("Its a Yaml file")
+			ParserResponse = utils.YAMLToJSON(file)
 		} else if fileExtension == ".csv" {
-
+			ParserResponse = utils.CSVToJSON(file)
 		} else if fileExtension == ".xlsx" {
-
+			ParserResponse = utils.ExcelToJSON(file)
 		}
-
-		if fileParsed != false && fileUpload != false {
-
-		} else if fileParsed == false {
-
+		apiResponse.FileParsed = ParserResponse.FileParsed
+		apiResponse.JsonString = ParserResponse.JsonString
+		if apiResponse.FileParsed == true {
+			UploadResponse = utils.UploadJsonToGist(newFilename, apiResponse.JsonString, author, appUrl)
+			fmt.Println("===>if")
+			c.JSON(200, gin.H{
+				"isFileUploaded": UploadResponse.FileUpload,
+				"gist_url":       UploadResponse.GistURL,
+			})
 		} else {
-			// file Upload failed
+			fmt.Println("===>else")
+			c.JSON(200, gin.H{
+				"isFileUploaded": UploadResponse.FileUpload,
+				"gist_url":       UploadResponse.GistURL,
+			})
 		}
-
-		// Return GIST URL
-		c.JSON(200, gin.H{
-			"gist_url": apiResponse.GistURL,
-		})
-
 	})
 	router.Run(":8003")
 }
+
+// dineshsonachalam@macbook ~ % source ~/.bash_profile
+// dineshsonachalam@macbook ~ % echo $GIST_API_TOKEN
+
+// JSON Response:  map[documentation_url:https://docs.github.com/rest/reference/gists#create-a-gist message:Problems parsing JSON]
+// map[documentation_url:https://docs.github.com/rest/reference/gists#create-a-gist message:Problems parsing JSON]
+
+// JSON Response:  map[documentation_url:https://docs.github.com/rest/reference/gists#create-a-gist message:Problems parsing JSON]
