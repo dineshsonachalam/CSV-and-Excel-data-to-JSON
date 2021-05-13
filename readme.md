@@ -1,32 +1,23 @@
-### Todo:
-
-1. Add Yaml, Toml converter.
-2. Go grpc server.
-3. Github application - get github username on login and store it on a cookie.
-4. After user login - user sends a file as a input in web with basic github auth and results are stored in a gist and shared with the user.
-5. Store user details like - github ID, username, filename, file created date, file extension in a mysql table.
-6. Gin+GRPC server.
-7. Use postgres DB.
-8. CRUD add functionality - CREATE, GET ALL gist created by user, DELETE gist
+# [NLP Fuzzy search](https://aktrea.dineshsonachalam.me/)
+[![Build Status](https://api.travis-ci.com/dineshsonachalam/NLP-Fuzzy-Search.svg?branch=master)](https://travis-ci.com/dineshsonachalam/NLP-Fuzzy-Search)
+[![](https://img.shields.io/docker/pulls/dineshsonachalam/aktrea.svg)](https://hub.docker.com/r/dineshsonachalam/aktrea)
+[![](https://img.shields.io/badge/python-3.5%20%7C%203.6%20%7C%203.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
+[![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/dineshsonachalam/aktrea/blob/master/LICENSE)
 
 
-#### Go guideline
-1. To initialize a project with go module, run:
-```go mod init your-project-name```
 
-2.Add missing and/or remove unused modules:
-```go mod tidy```
 
-3. You can even vendor the modules in your project directory:
-```
-go mod vendor
+
+![](https://i.imgur.com/9wFVMcy.png)
+![](https://i.imgur.com/5D1f1tp.png)
+
+
+Intent Classification Problem: https://github.com/dineshsonachalam/Intent-classification
+
+### Install Requirements:
+
+```python
+pip install -r setup/requirements.txt
 ```
 
-Creating gists:
-```
-curl --location --request POST 'https://api.github.com/gists' \
---header 'Authorization: Bearer <ACCESS_TOKEN>' \
---header 'Content-Type: application/json' \
---header 'Cookie: _octo=GH1.1.329936248.1614167878; logged_in=no' \
---data-raw '{"public":true,"files":{"test.txt":{"content":"String file contents"}}}'
-```
+

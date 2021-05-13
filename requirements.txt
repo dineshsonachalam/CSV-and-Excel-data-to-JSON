@@ -1,0 +1,7 @@
+Flask==1.1.2
+fuzzywuzzy==0.18.0
+keras==2.4.3
+numpy==1.17.4
+tensorflow==2.4.1
+gunicorn==20.1.0
+
